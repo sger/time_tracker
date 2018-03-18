@@ -11,17 +11,18 @@ defmodule TimeTrackerWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", TimeTrackerWeb do
     # Use the default browser stack
     pipe_through(:browser)
 
-    get("/", PageController, :index)
+    get("/*path", PageController, :index)
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TimeTrackerWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TimeTrackerWeb do
+    pipe_through :api
+  end
 end

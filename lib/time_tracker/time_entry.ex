@@ -25,7 +25,9 @@ defmodule TimeTracker.TimeEntry do
   @doc false
   def changeset(time_entry, attrs) do
     time_entry
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, @optional_fields)
+    |> validate_required(@required_fields)
+    |> foreign_key_constraint(:project_id)
+    |> foreign_key_constraint(:user_id)
   end
 end

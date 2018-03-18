@@ -18,7 +18,9 @@ defmodule TimeTracker.ProjectUser do
   @doc false
   def changeset(project_user, attrs) do
     project_user
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, @optional_fields)
+    |> validate_required(@required_fields)
+    |> foreign_key_constraint(:project_id)
+    |> foreign_key_constraint(:user_id)
   end
 end

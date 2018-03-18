@@ -26,7 +26,21 @@ defmodule TimeTracker.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, @allowed_fields)
+    |> validate_required(@required_fields)
+    |> validate_format(:email, @email_regex)
+    |> validate_length(:password, min: 6, max: 100)
+    |> validate_confirmation(:password, message: "Password does not match")
+    |> unique_constraint(:email, message: "Email already taken")
+    |> put_pass_hash()
+  end
+
+  def put_pass_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ ->
+        changeset
+    end
   end
 end

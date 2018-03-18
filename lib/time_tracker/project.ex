@@ -20,7 +20,8 @@ defmodule TimeTracker.Project do
   @doc false
   def changeset(project, attrs) do
     project
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, @allowed_fields)
+    |> validate_required(@required_fields)
+    |> unique_constraint(:name, message: "Project name exists")
   end
 end

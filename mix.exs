@@ -20,7 +20,7 @@ defmodule TimeTracker.Mixfile do
   def application do
     [
       mod: {TimeTracker.Application, []},
-      extra_applications: [:logger, :runtime_tools, :timex, :timex_ecto, :jose, :ex_machina]
+      extra_applications: [:logger, :runtime_tools, :comeonin, :timex, :timex_ecto, :jose, :ex_machina]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule TimeTracker.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
       {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.0"},
       {:jose, "~> 1.8"},
