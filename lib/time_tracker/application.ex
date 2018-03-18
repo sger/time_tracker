@@ -11,7 +11,7 @@ defmodule TimeTracker.Application do
       # Start the Ecto repository
       supervisor(TimeTracker.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(TimeTrackerWeb.Endpoint, []),
+      supervisor(TimeTrackerWeb.Endpoint, [])
       # Start your own worker by calling: TimeTracker.Worker.start_link(arg1, arg2, arg3)
       # worker(TimeTracker.Worker, [arg1, arg2, arg3]),
     ]

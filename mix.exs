@@ -6,9 +6,9 @@ defmodule TimeTracker.Mixfile do
       app: :time_tracker,
       version: "0.0.1",
       elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
     ]
@@ -20,13 +20,13 @@ defmodule TimeTracker.Mixfile do
   def application do
     [
       mod: {TimeTracker.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex, :timex_ecto, :jose, :ex_machina]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -41,15 +41,15 @@ defmodule TimeTracker.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 3.0"},
-      {:timex, "~> 3.0"},
+      {:comeonin, "~> 4.0"},
+      {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.0"},
-     {:jose, "~> 1.8"},
-     {:guardian, "~> 0.14"},
-     {:credo, "~> 0.7", only: [:dev, :test]},
-     {:ex_machina, "~> 2.0"},
-     {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
-     {:hound, "~> 1.0"}
+      {:jose, "~> 1.8"},
+      {:guardian, "~> 1.0"},
+      {:credo, "~> 0.9.0-rc1", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.2"},
+      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:hound, "~> 1.0"}
     ]
   end
 
@@ -63,7 +63,7 @@ defmodule TimeTracker.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
