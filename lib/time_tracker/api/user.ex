@@ -1,4 +1,4 @@
-defmodule TimeTracker.User do
+defmodule TimeTracker.Api.User do
   use Ecto.Schema
   import Ecto.Changeset
 
